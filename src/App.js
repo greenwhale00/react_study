@@ -3,9 +3,11 @@ import './App.css';
 
 
 function Header(props) {
-  console.log('props', props, props.title);
+  console.log(props);
   return <header>
-    <h1><a href="">{props.title}</a></h1>
+    <h1><a href="" onClick={function (event) {
+      event.preventDefault();
+    }}>{props.title}</a></h1>
   </header>
 }
 
@@ -13,7 +15,7 @@ function Nav(props) {
   const lis = []
   for (let i = 0; i < props.topics.length; i++) {
     let t = props.topics[i];
-    lis.push(<a href=""><li>{t.title}</li></a>)
+    lis.push(<li key={t.id}><a href={'/read/' + t.id}>{t.title}</a></li>)
   }
   return <nav>
     <ol>
@@ -38,7 +40,10 @@ function App() {
   ]
   return (
     <div >
-      <Header title="WEB" />
+      <Header title="WEB" onChangeMode={function () {
+        alert('Header');
+      }}
+      />
       <Nav topics={topics} />
       <Article title="Welcome" body="Hello, WEB" />
 
